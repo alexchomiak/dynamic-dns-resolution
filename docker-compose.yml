@@ -1,0 +1,19 @@
+version: "3.1"
+services:
+  app:
+    build:
+      context: .
+    networks:
+      - dynamic-subdomains
+  nginx:
+    image: nginx
+    volumes:
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - dynamic-subdomains
+    ports:
+      - "4000:80"
+    depends_on:
+      - app
+networks:
+  dynamic-subdomains:
